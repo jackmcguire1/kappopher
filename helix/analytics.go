@@ -9,7 +9,7 @@ import (
 // ExtensionAnalytics represents extension analytics data.
 type ExtensionAnalytics struct {
 	ExtensionID string    `json:"extension_id"`
-	URL         string    `json:"url"`
+	URL         string    `json:"URL"`
 	Type        string    `json:"type"`
 	DateRange   DateRange `json:"date_range"`
 }
