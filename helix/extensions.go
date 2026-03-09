@@ -4,7 +4,6 @@ import (
 	"context"
 	"net/url"
 	"strconv"
-	"time"
 )
 
 // ExtensionConfigurationSegment represents a configuration segment.
@@ -321,7 +320,6 @@ type ExtensionTransactionProductFromTx struct {
 	Cost          ExtensionBitsCost `json:"cost"`
 	DisplayName   string            `json:"display_name"`
 	InDevelopment bool              `json:"inDevelopment"`
-	Expiration    time.Time         `json:"expiration,omitempty"`
 }
 
 // ExtensionTransactionProduct represents the product in a transaction.
