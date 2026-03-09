@@ -1,4 +1,4 @@
-module github.com/Its-donkey/kappopher
+module github.com/jackmcguire1/kappopher
 
 go 1.26
 
