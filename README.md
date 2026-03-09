@@ -5,12 +5,12 @@
 <h1 align="center">Kappopher</h1>
 
 <p align="center">
-  <a href="https://pkg.go.dev/github.com/Its-donkey/kappopher"><img src="https://pkg.go.dev/badge/github.com/Its-donkey/kappopher.svg" alt="Go Reference"></a>
-  <a href="https://goreportcard.com/report/github.com/Its-donkey/kappopher"><img src="https://goreportcard.com/badge/github.com/Its-donkey/kappopher" alt="Go Report Card"></a>
-  <a href="https://github.com/Its-donkey/kappopher/actions/workflows/test.yml"><img src="https://github.com/Its-donkey/kappopher/actions/workflows/test.yml/badge.svg" alt="Tests"></a>
-  <a href="https://github.com/Its-donkey/kappopher/actions/workflows/test.yml"><img src="https://raw.githubusercontent.com/Its-donkey/kappopher/main/.github/coverage.svg" alt="Coverage"></a>
+  <a href="https://pkg.go.dev/github.com/jackmcguire1/kappopher"><img src="https://pkg.go.dev/badge/github.com/jackmcguire1/kappopher.svg" alt="Go Reference"></a>
+  <a href="https://goreportcard.com/report/github.com/jackmcguire1/kappopher"><img src="https://goreportcard.com/badge/github.com/jackmcguire1/kappopher" alt="Go Report Card"></a>
+  <a href="https://github.com/jackmcguire1/kappopher/actions/workflows/pull_request.yml"><img src="https://github.com/jackmcguire1/kappopher/actions/workflows/test.yml/badge.svg" alt="Tests"></a>
+  <a href="https://github.com/jackmcguire1/kappopher/actions/workflows/pull_request.yml"><img src="https://raw.githubusercontent.com/jackmcguire1/kappopher/main/.github/coverage.svg" alt="Coverage"></a>
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
-  <a href="https://github.com/Its-donkey/kappopher"><img src="https://img.shields.io/github/go-mod/go-version/Its-donkey/kappopher" alt="Go Version"></a>
+  <a href="https://github.com/jackmcguire1/kappopher"><img src="https://img.shields.io/github/go-mod/go-version/jackmcguire1/kappopher" alt="Go Version"></a>
 </p>
 
 A comprehensive Twitch API toolkit for Go.
@@ -31,12 +31,12 @@ A comprehensive Twitch API toolkit for Go.
 - **Rate Limiting**: Automatic rate limit tracking with retry support
 - **Type-Safe**: Fully typed request/response structures with Go generics
 
-**[View Full Documentation and a complete cookbook of examples](https://its-donkey.github.io/kappopher/)**
+**[View Full Documentation and a complete cookbook of examples](https://jackmcguire1.github.io/kappopher/)**
 
 ## Installation
 
 ```bash
-go get github.com/Its-donkey/kappopher
+go get github.com/jackmcguire1/kappopher
 ```
 
 ## Quick Start
@@ -47,7 +47,7 @@ package main
 import (
     "context"
     "fmt"
-    "github.com/Its-donkey/kappopher/helix"
+    "github.com/jackmcguire1/kappopher/helix"
 )
 
 func main() {
