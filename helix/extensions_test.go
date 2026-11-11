@@ -425,7 +425,7 @@ func TestClient_GetExtensionTransactions(t *testing.T) {
 					UserLogin:        "buyer",
 					UserName:         "Buyer",
 					ProductType:      "BITS_IN_EXTENSION",
-					ProductData: ExtensionTransactionProductFromTx{
+					ProductData: ExtensionTransactionProductData{
 						SKU:           "product123",
 						Cost:          ExtensionBitsCost{Amount: 100, Type: "bits"},
 						InDevelopment: false,
@@ -454,33 +454,23 @@ func TestClient_GetExtensionTransactions(t *testing.T) {
 	}
 }
 
-func TestClient_GetExtensionTransactions_IgnoresUnknownProductDataFields(t *testing.T) {
+// TestClient_GetExtensionTransactions_ProductDataTags verifies that the
+// transaction endpoint's camelCase "displayName"/"inDevelopment" tags and the
+// "expiration" field decode correctly from a raw Twitch-shaped response.
+func TestClient_GetExtensionTransactions_ProductDataTags(t *testing.T) {
 	client, server := newTestClient(func(w http.ResponseWriter, r *http.Request) {
-		if r.URL.Path != "/extensions/transactions" {
-			t.Errorf("expected /extensions/transactions, got %s", r.URL.Path)
-		}
-
-		w.Header().Set("Content-Type", "application/json")
 		_, _ = w.Write([]byte(`{
 			"data": [{
 				"id": "tx123",
-				"timestamp": "2024-01-15T12:00:00Z",
-				"broadcaster_id": "12345",
-				"broadcaster_login": "testuser",
-				"broadcaster_name": "TestUser",
-				"user_id": "67890",
-				"user_login": "buyer",
-				"user_name": "Buyer",
 				"product_type": "BITS_IN_EXTENSION",
 				"product_data": {
 					"sku": "product123",
 					"cost": {"amount": 100, "type": "bits"},
-					"display_name": "Test Product",
-					"inDevelopment": false,
-					"expiration": ""
+					"displayName": "Test Product",
+					"inDevelopment": true,
+					"expiration": "2024-12-31T00:00:00Z"
 				}
-			}],
-			"pagination": {"cursor": "next-cursor"}
+			}]
 		}`))
 	})
 	defer server.Close()
@@ -488,15 +478,18 @@ func TestClient_GetExtensionTransactions_IgnoresUnknownProductDataFields(t *test
 	resp, err := client.GetExtensionTransactions(context.Background(), &GetExtensionTransactionsParams{
 		ExtensionID: "ext123",
 	})
-
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
-	if len(resp.Data) != 1 {
-		t.Fatalf("expected 1 transaction, got %d", len(resp.Data))
+	pd := resp.Data[0].ProductData
+	if pd.DisplayName != "Test Product" {
+		t.Errorf("expected DisplayName from camelCase \"displayName\" tag, got %q", pd.DisplayName)
 	}
-	if resp.Data[0].ProductData.SKU != "product123" {
-		t.Errorf("expected SKU 'product123', got %s", resp.Data[0].ProductData.SKU)
+	if !pd.InDevelopment {
+		t.Error("expected InDevelopment true from camelCase \"inDevelopment\" tag")
+	}
+	if pd.Expiration != "2024-12-31T00:00:00Z" {
+		t.Errorf("expected Expiration to decode, got %q", pd.Expiration)
 	}
 }
 

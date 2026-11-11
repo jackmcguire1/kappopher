@@ -301,33 +301,28 @@ func (c *Client) UpdateExtensionBitsProduct(ctx context.Context, params *UpdateE
 
 // ExtensionTransaction represents an extension transaction.
 type ExtensionTransaction struct {
-	ID               string                            `json:"id"`
-	Timestamp        string                            `json:"timestamp"`
-	BroadcasterID    string                            `json:"broadcaster_id"`
-	BroadcasterLogin string                            `json:"broadcaster_login"`
-	BroadcasterName  string                            `json:"broadcaster_name"`
-	UserID           string                            `json:"user_id"`
-	UserLogin        string                            `json:"user_login"`
-	UserName         string                            `json:"user_name"`
-	ProductType      string                            `json:"product_type"`
-	ProductData      ExtensionTransactionProductFromTx `json:"product_data"`
+	ID               string                          `json:"id"`
+	Timestamp        string                          `json:"timestamp"`
+	BroadcasterID    string                          `json:"broadcaster_id"`
+	BroadcasterLogin string                          `json:"broadcaster_login"`
+	BroadcasterName  string                          `json:"broadcaster_name"`
+	UserID           string                          `json:"user_id"`
+	UserLogin        string                          `json:"user_login"`
+	UserName         string                          `json:"user_name"`
+	ProductType      string                          `json:"product_type"`
+	ProductData      ExtensionTransactionProductData `json:"product_data"`
 }
 
-// ExtensionTransactionProductFromTx represents the product in a transaction from the transaction endpoint.
-// Note the "inDevelopment" json field is camelCase in this struct to match the API response, while in ExtensionTransactionProduct it's snake_case to match the API request/response for products.
-type ExtensionTransactionProductFromTx struct {
+// ExtensionTransactionProductData represents the product in a transaction.
+// The transaction endpoint returns "displayName" and "inDevelopment" in
+// camelCase, unlike the Bits product endpoints which use "display_name" and
+// "in_development".
+type ExtensionTransactionProductData struct {
 	SKU           string            `json:"sku"`
 	Cost          ExtensionBitsCost `json:"cost"`
-	DisplayName   string            `json:"display_name"`
+	DisplayName   string            `json:"displayName"`
 	InDevelopment bool              `json:"inDevelopment"`
-}
-
-// ExtensionTransactionProduct represents the product in a transaction.
-type ExtensionTransactionProduct struct {
-	SKU           string            `json:"sku"`
-	Cost          ExtensionBitsCost `json:"cost"`
-	DisplayName   string            `json:"display_name"`
-	InDevelopment bool              `json:"in_development"`
+	Expiration    string            `json:"expiration,omitempty"`
 }
 
 // GetExtensionTransactionsParams contains parameters for GetExtensionTransactions.

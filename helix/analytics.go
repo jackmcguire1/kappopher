@@ -53,7 +53,7 @@ func (c *Client) GetExtensionAnalytics(ctx context.Context, params *GetExtension
 // GameAnalytics represents game analytics data.
 type GameAnalytics struct {
 	GameID    string    `json:"game_id"`
-	URL       string    `json:"url"`
+	URL       string    `json:"URL"`
 	Type      string    `json:"type"`
 	DateRange DateRange `json:"date_range"`
 }
