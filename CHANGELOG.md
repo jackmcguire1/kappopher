@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - CI: added a stable `Test Pass` aggregate job (gates on the `Test` matrix) so branch protection can require a version-independent status check. This prevents the required check from going stale whenever the Go version matrix changes (as happened when `Test (1.24)` was retired for `Test (1.26)`).
 - Applied `go fix`: rewrote an in-loop string concatenation in `whispers_test.go` to use `strings.Builder` (Go 1.26 fixer). Test-only; no library behavior change.
+- CI: test matrix runs Go 1.26 and 1.27; lint, build, coverage and release run on Go 1.27. `go.mod` stays at `go 1.26` so the library doesn't force consumers onto 1.27
+- CI: bumped `actions/checkout` to v7 and `golangci/golangci-lint-action` to v9
+- Applied Go 1.27 `go fix`: `slices.Backward` for the reverse middleware loop in `client.go`; `atomic.Int64`/`atomic.Int32` types in `auth_test.go` and `batch_test.go`. No behavior change
+- Changelog monitor reads Twitch's changelog RSS feed (`https://dev.twitch.tv/docs/rss/change-log.xml`) instead of scraping the HTML page, whose layout changed on 2026-11-09 (Twitch recommends the feed for monitoring). New entries are tracked by guid in `state/twitch-changelog` (`.github/twitch-changelog-seen.txt`) and posted as rendered Markdown; on first run only entries from the last 14 days are reported. Logic lives in `.github/scripts/twitch_changelog.py` (Python standard library only)
 
 ### Fixed
 
